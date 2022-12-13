@@ -12,11 +12,11 @@ import time
 app=Flask(__name__)
 app.register_blueprint(import_data, url_prefix="")
 
-while True:
-  updated_data()
-  time.sleep(86400)
-else:
-  exit()
+# while True:
+#   updated_data()
+#   time.sleep(86400)
+# else:
+#   exit()
 
 #Import data from MongoDB
 myclient = pymongo.MongoClient("mongodb+srv://Hoanglong_Pham:Long1989@cluster0.j3atpvd.mongodb.net/?retryWrites=true&w=majority")
