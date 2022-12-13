@@ -2,15 +2,21 @@ from flask import Flask, request, render_template, jsonify
 import pymongo
 from bson import json_util
 import pandas as pd
-
+from import_data import import_data
+from import_data import updated_data
 import json
 from datetime import date, timedelta
-
 import requests
 import time
 
-
 app=Flask(__name__)
+app.register_blueprint(import_data, url_prefix="")
+
+while True:
+  updated_data()
+  time.sleep(86400)
+else:
+  exit()
 
 #Import data from MongoDB
 myclient = pymongo.MongoClient("mongodb+srv://Hoanglong_Pham:Long1989@cluster0.j3atpvd.mongodb.net/?retryWrites=true&w=majority")

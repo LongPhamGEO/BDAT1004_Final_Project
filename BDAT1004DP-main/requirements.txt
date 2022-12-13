@@ -8,6 +8,7 @@ cffi==1.15.0
 colorama==0.4.4
 click
 cycler==0.10.0
+datetime
 debugpy==1.5.1
 decorator==5.1.1
 defusedxml==0.7.1
