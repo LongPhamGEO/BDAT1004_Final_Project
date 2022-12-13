@@ -11,6 +11,7 @@ cycler==0.10.0
 debugpy==1.5.1
 decorator==5.1.1
 defusedxml==0.7.1
+dnspython
 entrypoints==0.4
 Flask
 executing==0.8.3
@@ -47,6 +48,7 @@ opencv-contrib-python==4.6.0.66
 opencv-python==4.6.0.66
 packaging==21.3
 pandas==1.4.3
+pandas-datareader==0.10.0
 pandocfilters==1.5.0
 parso==0.8.3
 pickleshare==0.7.5
@@ -57,11 +59,14 @@ pure-eval==0.2.2
 pyarrow==9.0.0
 pycparser==2.21
 Pygments==2.11.2
+pymongo==3.12.0
+pymongo[srv]
 pyparsing==2.4.7
 pyrsistent==0.18.1
 python-dateutil==2.8.1
 qtconsole==5.2.2
 QtPy==2.0.1
+requests
 Send2Trash==1.8.0
 six==1.15.0
 stack-data==0.2.0
@@ -73,3 +78,5 @@ wcwidth==0.2.5
 webencodings==0.5.1
 widgetsnbextension==3.5.2
 Werkzeug
+yfinance==0.1.87
+zict==2.0.0
