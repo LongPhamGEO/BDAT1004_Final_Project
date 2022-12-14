@@ -11,8 +11,12 @@ import requests
 app=Flask(__name__)
 app.register_blueprint(import_data, url_prefix="")
 
+#updated_data()
+
 #Import data from MongoDB
 myclient = pymongo.MongoClient("mongodb+srv://Hoanglong_Pham:Long1989@cluster0.j3atpvd.mongodb.net/?retryWrites=true&w=majority")
+
+
 
 @app.route('/')
 def index():
@@ -47,11 +51,6 @@ def chart():
 @app.route('/team')
 def OurTeam():
 	return render_template('OurTeam.html')
-
-# Theoritically, the following function will update the information everytime the web app is called
-# However it would generate high amount of time. Therefore, we shut it when upload to heroku and
-# the app manually to update the data:
-updated_data()
 
 if __name__ == "__main__":
   app.run()

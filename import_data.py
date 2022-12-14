@@ -8,7 +8,6 @@ import json
 from datetime import date, timedelta
 import yfinance as yf
 import requests
-import time
 
 import_data = Blueprint("import_data", __name__, static_folder="static", template_folder="template")
 
@@ -115,52 +114,47 @@ def generate_list():
     return exchange_list
           
 def updated_data():
-  while True:
-  #Upload information of stocks into MongoDB
-    myclient = pymongo.MongoClient("mongodb+srv://Hoanglong_Pham:Long1989@cluster0.j3atpvd.mongodb.net/?retryWrites=true&w=majority")
-    mydb = myclient["StockMarket"]
-    collist = mydb.list_collection_names()
+#Upload information of stocks into MongoDB
+  myclient = pymongo.MongoClient("mongodb+srv://Hoanglong_Pham:Long1989@cluster0.j3atpvd.mongodb.net/?retryWrites=true&w=majority")
+  mydb = myclient["StockMarket"]
+  collist = mydb.list_collection_names()
 
-    # Prepare the case that web crawling does not work
-    try:
-        exchange_list = generate_list()
-    except:
-        mycol = mydb['exchange_list']
-        mydoc = mycol.find_one({})
-        download_list = mydoc['symbol']
-        exchange_list = []
-        for i in download_list:
-            exchange_list.append(download_list[i])
+  # Prepare the case that web crawling does not work
+  try:
+      exchange_list = generate_list()
+  except:
+      mycol = mydb['exchange_list']
+      mydoc = mycol.find_one({})
+      download_list = mydoc['symbol']
+      exchange_list = []
+      for i in download_list:
+          exchange_list.append(download_list[i])
 
-    for symbol in exchange_list:
-        mycol = mydb[symbol]
-        value = history_price(symbol)
-        if symbol == '%5ENDX':
-            symbol = 'NDX'
-        elif symbol == '%5EDJI':
-            symbol = 'DJI'
-        if symbol in collist:
-            mycol.drop()
-            mycol.insert_one(value)
-            print(symbol + ' is updated')
-        else:
-            mycol.insert_one(value)
-            print(symbol + ' is created')
+  for symbol in exchange_list:
+      mycol = mydb[symbol]
+      value = history_price(symbol)
+      if symbol == '%5ENDX':
+          symbol = 'NDX'
+      elif symbol == '%5EDJI':
+          symbol = 'DJI'
+      if symbol in collist:
+          mycol.drop()
+          mycol.insert_one(value)
+          print(symbol + ' is updated')
+      else:
+          mycol.insert_one(value)
+          print(symbol + ' is created')
 
-    #Update exchange_list to MongoDB:
-    mylist = mydb['exchange_list']
-    upload_list = {}
-    upload_list = pd.DataFrame(exchange_list, columns=['symbol'])
-    upload_list = upload_list.to_json()
-    upload_list =json.loads(upload_list)
-    if 'exchange_list' in collist:
-        mylist.drop()
-        mylist.insert_one(upload_list)
-        print('exchange lis is updated')
-    else:
-        mylist.insert_one(upload_list)
-        print('exchange lis is created')
-    time.sleep(86400)
+  #Update exchange_list to MongoDB:
+  mylist = mydb['exchange_list']
+  upload_list = {}
+  upload_list = pd.DataFrame(exchange_list, columns=['symbol'])
+  upload_list = upload_list.to_json()
+  upload_list =json.loads(upload_list)
+  if 'exchange_list' in collist:
+      mylist.drop()
+      mylist.insert_one(upload_list)
+      print('exchange lis is updated')
   else:
-    exit()
-    
+      mylist.insert_one(upload_list)
+      print('exchange lis is created')

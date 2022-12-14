@@ -60,7 +60,7 @@ Site.prototype.RenderChart = function(data, quote){
 
 	for(var i in data.Close){
 		var dt = i.slice(0,i.length-3);
-		var dateString = moment.unix(dt).format("MM/YY");
+		var dateString = moment.unix(dt).format("DD/MM/YY");
 		var close = data.Close[i];
 		if(close != null){
 			priceData.push(data.Close[i]);
