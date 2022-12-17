@@ -159,7 +159,7 @@ def updated_data():
         print('exchange lis is updated')
     else:
         mylist.insert_one(upload_list)
-        print('exchange lis is created')
+        print('exchange list is created')
     time.sleep(86400)
   else:
     exit()

@@ -51,7 +51,7 @@ def OurTeam():
 # Theoritically, the following function will update the information everytime the web app is called
 # However it would generate high amount of time. Therefore, we shut it when upload to heroku and
 # the app manually to update the data:
-updated_data()
+# updated_data()
 
 if __name__ == "__main__":
   app.run()
